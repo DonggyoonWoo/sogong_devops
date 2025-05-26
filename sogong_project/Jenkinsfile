@@ -66,6 +66,14 @@ pipeline {
         }
         success {
             echo "Build and test succeeded"
+            emailext (
+                subject: "✅ Jenkins Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """<p>Good news!</p>
+                         <p>The Jenkins build <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> succeeded.</p>
+                         <p>Check it here: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>""",
+                to: "danielwoo0878@gmail.com",
+                mimeType: 'text/html'
+            )
         }
     }
 }
